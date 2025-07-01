@@ -1,0 +1,82 @@
+<!-- Back button and title -->
+<p-toast></p-toast>
+<div class="add-expense-header">
+  <button class="back-btn" routerLink="/">&#8592;</button>
+  <span class="title">{{ 'add_expense.title' | translate }}</span>
+</div>
+
+<!-- Expense Form Card -->
+<div class="expense-form-card">
+  <form class="expense-form" [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label>{{ 'add_expense.categories' | translate }}</label>
+        <select #catSelect formControlName="category" (change)="selectCategory(catSelect.value)">
+          <option *ngFor="let cat of categories" [value]="cat">{{ ('categories.' + cat) | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>{{ 'add_expense.type' | translate }}</label>
+        <div class="type-toggle">
+          <button type="button" [class.active]="type === 'expense'" (click)="setType('expense')">{{ 'add_expense.expense' | translate }}</button>
+          <button type="button" [class.active]="type === 'income'" (click)="setType('income')">{{ 'add_expense.income' | translate }}</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>{{ 'add_expense.amount' | translate }}</label>
+        <input type="number" formControlName="amount" [placeholder]="'add_expense.amount' | translate" />
+        <div *ngIf="expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched" class="error">
+          <ng-container *ngIf="expenseForm.get('amount')?.errors?.['required']">
+            {{ 'add_expense.amount' | translate }}
+          </ng-container>
+          <ng-container *ngIf="expenseForm.get('amount')?.errors?.['notNegative']">
+            {{ 'add_expense.amount' | translate }} {{ 'add_expense.expense' | translate }}
+          </ng-container>
+          <ng-container *ngIf="expenseForm.get('amount')?.errors?.['notPositive']">
+            {{ 'add_expense.amount' | translate }} {{ 'add_expense.income' | translate }}
+          </ng-container>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{ 'add_expense.date' | translate }}</label>
+        <input type="date" formControlName="date" [placeholder]="'add_expense.date' | translate" />
+        <div *ngIf="expenseForm.get('date')?.invalid && expenseForm.get('date')?.touched" class="error">
+          {{ 'add_expense.date' | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>{{ 'add_expense.currency' | translate }}</label>
+        <select formControlName="currency">
+          <option *ngFor="let c of currencies" [value]="c">{{c}}</option>
+        </select>
+      </div>
+      <div class="form-group full-width">
+        <label>{{ 'add_expense.attach_receipt' | translate }}</label>
+        <div class="drag-drop-area" [class.dragover]="dragOver" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+          <ng-container *ngIf="!receiptUrl">
+            <span>{{ 'add_expense.drag_drop' | translate }} <label class="upload-label"><input type="file" (change)="onFileChange($event)" hidden />{{ 'add_expense.upload' | translate }}</label></span>
+          </ng-container>
+          <ng-container *ngIf="receiptUrl">
+            <div class="uploaded-image">
+              <img [src]="receiptUrl" alt="Receipt" />
+              <button type="button" class="delete-image" (click)="deleteImage()">&times;</button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label>{{ 'add_expense.categories' | translate }}</label>
+        <div class="categories-grid">
+          <button type="button" *ngFor="let cat of categories" class="category-btn" [class.selected]="selectedCategory === cat" (click)="selectCategory(cat)">{{ ('categories.' + cat) | translate }}</button>
+        </div>
+      </div>
+    </div>
+    <button class="save-btn" type="submit" [disabled]="expenseForm.invalid">{{ 'add_expense.save' | translate }}</button>
+  </form>
+</div> 

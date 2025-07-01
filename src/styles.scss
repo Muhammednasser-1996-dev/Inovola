@@ -1,0 +1,105 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #2563eb;
+  --primary-light: #60a5fa;
+  --danger: #f87171;
+  --success: #22c55e;
+  --gray: #f3f4f6;
+  --text: #222;
+  --border-radius: 1.25rem;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+// Mixins
+@mixin rounded {
+  border-radius: var(--border-radius);
+}
+@mixin shadow {
+  box-shadow: var(--shadow);
+}
+@mixin text-align($align) {
+  text-align: $align;
+}
+@mixin bg($color, $text: null) {
+  background: $color;
+  @if $text {
+    color: $text;
+  }
+}
+@mixin rtl-swap($prop, $ltr, $rtl) {
+  #{$prop}: $ltr;
+  [dir="rtl"] & {
+    #{$prop}: $rtl;
+  }
+}
+@mixin responsive {
+  @media (max-width: 700px) {
+    @content;
+  }
+}
+
+html, body {
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  background: #f9fafb;
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  direction: ltr;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+button, input, select {
+  font-family: inherit;
+}
+
+// Utility classes
+.rounded { @include rounded; }
+.shadow { @include shadow; }
+.text-center { @include text-align(center); }
+.text-right { @include text-align(right); }
+.text-left { @include text-align(left); }
+.bg-primary { @include bg(var(--primary), #fff); }
+.bg-gray { @include bg(var(--gray)); }
+.mt-2 { margin-top: 2rem; @include responsive { margin-top: 1rem; } }
+.mb-2 { margin-bottom: 2rem; @include responsive { margin-bottom: 1rem; } }
+.p-2 { padding: 2rem; @include responsive { padding: 1rem; } }
+
+// RTL support
+[dir="rtl"] {
+  body, div {
+    direction: rtl;
+  }
+  .text-left { @include text-align(right); }
+  .text-right { @include text-align(left); }
+  .ml-auto {
+    margin-right: auto;
+    margin-left: 0;
+  }
+  .mr-auto {
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+
+// PrimeNG/PrimeFlex overrides (if needed)
+.p-button {
+  font-family: inherit;
+  @include rounded;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}

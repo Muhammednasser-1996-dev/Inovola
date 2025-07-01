@@ -1,0 +1,43 @@
+{
+  "dashboard": {
+    "welcome": "صباح الخير",
+    "recent_expenses": "المصروفات الأخيرة",
+    "income": "الدخل",
+    "expenses": "المصروفات",
+    "total_usd": "الإجمالي ({{filter}}) بالدولار:"
+  },
+  "add_expense": {
+    "title": "إضافة مصروف",
+    "categories": "الفئات",
+    "type": "النوع",
+    "expense": "مصروف",
+    "income": "دخل",
+    "amount": "المبلغ",
+    "date": "التاريخ",
+    "currency": "العملة",
+    "attach_receipt": "إرفاق إيصال",
+    "drag_drop": "اسحب وأسقط صورة هنا، أو",
+    "upload": "رفع",
+    "save": "حفظ"
+  },
+  "filters": {
+    "all": "كل الوقت",
+    "month": "هذا الشهر",
+    "7days": "آخر 7 أيام"
+  },
+  "categories": {
+    "Groceries": "بقالة",
+    "Entertainment": "ترفيه",
+    "Gas": "بنزين",
+    "Shopping": "تسوق",
+    "News Paper": "جريدة",
+    "Transport": "مواصلات",
+    "Rent": "إيجار",
+    "Add Category": "إضافة فئة"
+  },
+  "general": {
+    "success": "تم بنجاح",
+    "expense_added": "تمت إضافة المصروف بنجاح!",
+    "no_expenses": "لا توجد مصروفات لهذا الفلتر. أضف أول مصروف!"
+  }
+} 

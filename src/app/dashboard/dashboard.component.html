@@ -1,0 +1,65 @@
+<!-- Header with user info and filter -->
+<div class="dashboard-header">
+  <div class="profile-info">
+    <img class="profile-img" src="https://i.pravatar.cc/48" alt="Profile" />
+    <div>
+      <div class="welcome">{{ 'dashboard.welcome' | translate }}</div>
+      <div class="username">Shihab Rahman</div>
+    </div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <p-dropdown [options]="langOptions" [(ngModel)]="lang" (onChange)="onLangChange($event.value)" ></p-dropdown>
+    <select class="filter-select" [(ngModel)]="filter" (ngModelChange)="onFilterChange($event)">
+      <option *ngFor="let f of filters" [value]="f.value">{{ ('filters.' + f.value) | translate }}</option>
+    </select>
+  </div>
+</div>
+
+<!-- Balance Card -->
+<div class="balance-card">
+  <h1>Total Balance</h1>
+  <div class="total-balance">${{ totalBalance | number:'1.2-2' }}</div>
+  <div class="balance-details">
+    <div class="income">
+      <span>{{ 'dashboard.income' | translate }}</span>
+      <span>${{ totalIncome | number:'1.2-2' }}</span>
+    </div>
+    <div class="expenses">
+      <span>{{ 'dashboard.expenses' | translate }}</span>
+      <span>${{ totalExpenses | number:'1.2-2' }}</span>
+    </div>
+  </div>
+  <div class="filtered-usd-total" style="margin-top:0.5rem; font-size:0.95em; color:#fff; opacity:0.85;">
+    {{ 'dashboard.total_usd' | translate: { filter: (filter === 'month' ? ('filters.month' | translate) : filter === '7days' ? ('filters.7days' | translate) : ('filters.all' | translate)) } }} <b>${{ filteredUsdTotal | number:'1.2-2' }}</b>
+  </div>
+</div>
+
+<!-- Recent Expenses -->
+<div class="recent-expenses">
+  <div class="section-title">
+    {{ 'dashboard.recent_expenses' | translate }}
+    <span *ngIf="total > pageSize" class="see-all">Page {{page}}</span>
+  </div>
+  <ul class="expenses-list">
+    <li class="expense-item" *ngFor="let expense of expenses">
+      <span class="category-icon" [ngStyle]="{'background': getCategoryColor(expense.category)}">
+        {{ getCategoryIcon(expense.category) }}
+      </span>
+      <span class="category-name">{{ ('categories.' + expense.category) | translate }}</span>
+      <span class="expense-amount">
+        <b>{{expense.amount < 0 ? '-' : ''}}{{ expense.amount | number:'1.2-2' }} {{expense.currency}}</b>
+        <br>
+        <small style="color:#888; font-size:0.85em;">${{ expense.usdAmount | number:'1.2-2' }} USD</small>
+      </span>
+      <span class="expense-date">{{expense.date | date:'shortDate'}}<br><span style="color:#bbb; font-size:0.95em;">{{expense.date | date:'shortTime'}}</span></span>
+    </li>
+  </ul>
+  <div *ngIf="expenses.length === 0" class="empty-state">
+    <div style="font-size:2.5rem;">🗒️</div>
+    <div>{{ 'general.no_expenses' | translate }}</div>
+  </div>
+  <button *ngIf="expenses.length < total" (click)="loadMore()" class="load-more">Load More</button>
+</div>
+
+<!-- Floating Action Button -->
+<button class="fab" routerLink="/add-expense" aria-label="Add new expense">+</button> 

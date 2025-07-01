@@ -1,0 +1,43 @@
+{
+  "dashboard": {
+    "welcome": "Good Morning",
+    "recent_expenses": "Recent Expenses",
+    "income": "Income",
+    "expenses": "Expenses",
+    "total_usd": "Total ({{filter}}) in USD:"
+  },
+  "add_expense": {
+    "title": "Add Expense",
+    "categories": "Categories",
+    "type": "Type",
+    "expense": "Expense",
+    "income": "Income",
+    "amount": "Amount",
+    "date": "Date",
+    "currency": "Currency",
+    "attach_receipt": "Attach Receipt",
+    "drag_drop": "Drag & drop an image here, or",
+    "upload": "upload",
+    "save": "Save"
+  },
+  "filters": {
+    "all": "All Time",
+    "month": "This Month",
+    "7days": "Last 7 Days"
+  },
+  "categories": {
+    "Groceries": "Groceries",
+    "Entertainment": "Entertainment",
+    "Gas": "Gas",
+    "Shopping": "Shopping",
+    "News Paper": "News Paper",
+    "Transport": "Transport",
+    "Rent": "Rent",
+    "Add Category": "Add Category"
+  },
+  "general": {
+    "success": "Success",
+    "expense_added": "Expense added successfully!",
+    "no_expenses": "No expenses found for this filter. Add your first expense!"
+  }
+} 
